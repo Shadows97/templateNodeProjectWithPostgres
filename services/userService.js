@@ -25,13 +25,28 @@ const updateUser = async (request, response) => {
     response.status(200).json(jane)
 }
 
+const getUser = async (request, response) => {
+
+    const id = request.params.id;
+    console.log(data)
+    const jane = await User.findByPk(id)
+    console.log(jane.toJSON())
+    response.status(200).json(jane)
+}
+
+const getAllUser = async (request, response) => {
+
+    const jane = await User.findAll()
+    response.status(200).json(jane)
+}
+
 const deleteUser = async (request, response) => {
 
-    const data = request.body;
+    const id = request.params.id;
     console.log(data)
     await User.destroy({
         where: {
-          id: data.id
+          id: id
         }
       });
     response.status(200).json({"resp": "ok"})
@@ -43,5 +58,7 @@ const deleteUser = async (request, response) => {
 module.exports = {
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUser,
+    getAllUser
 }
